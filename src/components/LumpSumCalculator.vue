@@ -14,13 +14,13 @@
       <label for="rate">Interest Rate</label>
       <input id="rate" name="rate" type="number" v-model="rate"/>
     </div>
-    <!-- <div class="form-control">
-      <label for="compounding">Compounding Type</label>
-      <input id="compounding" name="compounding" type="radio" value="1" v-model="compounding"/>
-      <input id="compounding" name="compounding" type="radio" value="3" v-model="compounding"/>
-      <input id="compounding" name="compounding" type="radio" value="6" v-model="compounding"/>
-      <input id="compounding" name="compounding" type="radio" value="12" v-model="compounding"/>
-    </div> -->
+    <div class="form-control">
+      <label for="compounding">Compounding Type</label> <br>
+      <input id="compounding" name="compounding" type="radio" value="1" v-model="compounding"> Annually
+      <input id="compounding" name="compounding" type="radio" value="2" v-model="compounding"> Half Yearly
+      <input id="compounding" name="compounding" type="radio" value="4" v-model="compounding"> Quarterly 
+      <input id="compounding" name="compounding" type="radio" value="12" v-model="compounding"> Monthly
+    </div>
   </form>
   </div>
   <div>
@@ -47,7 +47,7 @@ export default {
         return 0;
       }
       else {
-      let amount = (this.amount*Math.pow(1+r,this.years));
+      let amount = (this.amount*Math.pow(1+(r/this.compounding),(this.compounding * this.years)));
       return Math.round(amount);
       }
     },
@@ -69,11 +69,10 @@ input {
   height: 2.5rem;
   font-size: 2.2rem;
 }
+
+#compounding {
+  width:auto;
+  font-size: 1rem !important;
+  height: 1rem !important;
+}
 </style>
-
-
-// Time	Compound Interest Formula
-// 1 year [Compounded annually]            	P(1 + r)^t – P
-// 6 months [Compounded half yearly]	        P[1 + (r/2)^2t] – P
-// 3 months [Compounded quarterly]	            P[1 + (r/4)^4t] – P
-// 1 month [Monthly compound interest formula]	P[1 + (r/12)^12t] – P
